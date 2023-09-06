@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ko"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>StockController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">api</a> &gt; <a href="index.source.html" class="el_package">com.api.stock</a> &gt; <span class="el_source">StockController.java</span></div><h1>StockController.java</h1><pre class="source lang-java linenums">package com.api.stock;
+
+import com.api.config.exception.NoSuchDataException;
+import com.api.config.http.Message;
+import com.api.config.http.ResponseUtils;
+import com.api.location.dto.Location;
+import com.api.location.service.LocationService;
+import com.api.product.dto.Product;
+import com.api.product.service.ProductService;
+import com.api.stock.dto.Stock;
+import com.api.stock.service.StockService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.HashMap;
+
+/**
+ * fileName       : StockController
+ * author         : crlee
+ * date           : 2023/08/22
+ * description    :
+ * ===========================================================
+ * DATE              AUTHOR             NOTE
+ * -----------------------------------------------------------
+ * 2023/08/22        crlee       최초 생성
+ */
+@RestController
+public class StockController {
+    private final StockService stockService;
+    private final ProductService productService;
+    private final LocationService locationService;
+
+<span class="fc" id="L36">    public StockController(StockService stockService, ProductService productService, LocationService locationService){</span>
+<span class="fc" id="L37">        this.stockService = stockService;</span>
+<span class="fc" id="L38">        this.productService = productService;</span>
+<span class="fc" id="L39">        this.locationService = locationService;</span>
+<span class="fc" id="L40">    }</span>
+    @PostMapping(&quot;/inbound&quot;)
+    public ResponseEntity&lt;Message&gt; inbound(
+                                           int productId,
+                                           String location_name,
+                                           int quantity
+                                ){
+<span class="fc" id="L47">        HashMap&lt;String,Object&gt; data = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L48">        String msg = null;</span>
+<span class="fc" id="L49">        Product product = null;</span>
+<span class="fc" id="L50">        Stock stock = null;</span>
+<span class="fc" id="L51">        Location location = null;</span>
+        try{
+<span class="fc" id="L53">            stock = stockService.inBound(productId,location_name,quantity);</span>
+<span class="fc" id="L54">            product = productService.findById(stock.getShipping_product_id());</span>
+<span class="fc" id="L55">            location = locationService.findById(stock.getLocation_id());</span>
+<span class="fc" id="L56">            msg  = &quot;상품 입고 완료&quot;;</span>
+<span class="nc" id="L57">        }catch (NoSuchDataException e){</span>
+<span class="nc" id="L58">            msg  = e.getMessage();</span>
+<span class="fc" id="L59">        }</span>
+<span class="fc" id="L60">        data.put(&quot;stock&quot;, stock );</span>
+<span class="fc" id="L61">        data.put(&quot;product&quot;, product );</span>
+<span class="fc" id="L62">        data.put(&quot;location&quot;,location);</span>
+
+<span class="fc" id="L64">        return ResponseUtils.ResEntity(msg,data);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

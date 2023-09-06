@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.api.location.mapper.LocationMapper">
+
+    <select id="findById" resultType="com.api.location.dto.Location">
+        select * from location_info
+        where location_id = #{location_id}
+    </select>
+
+    <select id="findByName" resultType="com.api.location.dto.Location">
+        select * from location_info where location_name = #{location_name}
+    </select>
+
+    <select id="findEmpty" resultType="com.api.location.dto.Location">
+        select location_info.*
+        from   location_info
+        left   outer join product_stock on location_info.location_id  = product_stock.location_id
+        where  location_info.sku_limit != 0
+        GROUP  by location_info.location_id, location_info.sku_limit
+        HAVING location_info.sku_limit > count(DISTINCT  product_stock.shipping_product_id)
+        order  by location_info.sku_limit - count(DISTINCT  product_stock.shipping_product_id) desc
+        limit 1
+    </select>
+
+    <select id="findUnLimit" resultType="com.api.location.dto.Location">
+        select * from location_info where sku_limit = 0 limit 1
+    </select>
+</mapper>

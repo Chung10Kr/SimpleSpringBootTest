@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.api.product.ProductControllerTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-08-22T16:08:34" hostname="ichunglyeol-ui-MacBookAir.local" time="0.001">
+  <properties/>
+  <testcase name="상품조회 테스트 - 존재하는 않는 상품 코드" classname="com.api.product.ProductControllerTest" time="0.001"/>
+  <testcase name="상품조회 테스트 - 존재하는 상품 코드" classname="com.api.product.ProductControllerTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

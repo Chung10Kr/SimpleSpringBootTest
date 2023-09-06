@@ -1,0 +1,47 @@
+
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '2.7.6'
+	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+}
+
+group = 'com.api'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation( 'org.springframework.boot:spring-boot-starter' )
+	implementation( 'org.springframework.boot:spring-boot-starter-web' )
+	implementation( 'org.springframework.boot:spring-boot-starter-jdbc' )
+	implementation('org.springframework.boot:spring-boot-starter-webflux')
+	implementation('org.mybatis.spring.boot:mybatis-spring-boot-starter:2.3.1')
+	implementation('org.mybatis.spring.boot:mybatis-spring-boot-starter-test:2.3.1')
+	implementation( group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1' )
+
+	testImplementation( 'org.springframework.boot:spring-boot-starter-test' )
+
+
+	/* h2 database */
+	runtimeOnly( 'com.h2database:h2:2.1.214' )
+
+	/* mysql */
+	runtimeOnly( 'mysql:mysql-connector-java' )
+
+	/* Lombok */
+	compileOnly( 'org.projectlombok:lombok' )
+	annotationProcessor( 'org.projectlombok:lombok' )
+	testCompileOnly( 'org.projectlombok:lombok' )
+	testAnnotationProcessor( 'org.projectlombok:lombok' )
+}
+
+compileJava {
+	options.annotationProcessorPath = configurations.annotationProcessor
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

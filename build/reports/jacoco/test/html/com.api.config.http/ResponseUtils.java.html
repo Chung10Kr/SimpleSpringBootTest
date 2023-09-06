@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ko"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ResponseUtils.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">api</a> &gt; <a href="index.source.html" class="el_package">com.api.config.http</a> &gt; <span class="el_source">ResponseUtils.java</span></div><h1>ResponseUtils.java</h1><pre class="source lang-java linenums">package com.api.config.http;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+
+/**
+ * fileName       : ResEntity
+ * author         : crlee
+ * date           : 2023/08/21
+ * description    :
+ * ===========================================================
+ * DATE              AUTHOR             NOTE
+ * -----------------------------------------------------------
+ * 2023/08/21        crlee       최초 생성
+ */
+
+<span class="nc" id="L18">public class ResponseUtils {</span>
+
+    public static ResponseEntity&lt;Message&gt; ResEntity(String msg,Object data,HttpStatus httpStatus){
+<span class="fc" id="L21">        Message res = new Message(msg, data);</span>
+<span class="fc" id="L22">        return buildResponseEntity(res, httpStatus);</span>
+    }
+    public static ResponseEntity&lt;Message&gt; ResEntity(String msg,Object data){
+<span class="fc" id="L25">        Message res = new Message(msg, data);</span>
+<span class="fc" id="L26">        return buildResponseEntity(res, HttpStatus.OK);</span>
+    }
+    public static ResponseEntity&lt;Message&gt; ResEntity(String msg){
+<span class="nc" id="L29">        Message res = new Message(msg);</span>
+<span class="nc" id="L30">        return buildResponseEntity(res, HttpStatus.OK);</span>
+    }
+    public static ResponseEntity&lt;Message&gt; ResEntity(String msg,HttpStatus httpStatus){
+<span class="fc" id="L33">        Message res = new Message(msg);</span>
+<span class="fc" id="L34">        return buildResponseEntity(res, httpStatus);</span>
+    }
+    private static ResponseEntity&lt;Message&gt; buildResponseEntity(Message message, HttpStatus httpStatus) {
+<span class="fc" id="L37">        return ResponseEntity</span>
+<span class="fc" id="L38">                .status(httpStatus)</span>
+<span class="fc" id="L39">                .contentType(MediaType.APPLICATION_JSON)</span>
+<span class="fc" id="L40">                .body(message);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

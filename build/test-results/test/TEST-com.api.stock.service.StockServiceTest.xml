@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.api.stock.service.StockServiceTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-08-22T16:08:39" hostname="ichunglyeol-ui-MacBookAir.local" time="3.657">
+  <properties/>
+  <testcase name="입고 - 로케이션 직접 입력 (존재하지 않는 로케이션)" classname="com.api.stock.service.StockServiceTest" time="0.138"/>
+  <testcase name="입고 - 로케이션 직접 입력 (존재 하는 로케이션, 스큐제한 로케이션)" classname="com.api.stock.service.StockServiceTest" time="2.689"/>
+  <testcase name="입고 - 추천 로케이션" classname="com.api.stock.service.StockServiceTest" time="0.83"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
